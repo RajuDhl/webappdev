@@ -1,0 +1,5 @@
+Jelly,Ball,Yolk,Eggshell
+Kongo,Joey,Boy,Club
+Paris,Italy,USA,France
+The Mile,The Nile,The Amazon,The River of Egypt
+Burj Khalifa,Mount K2,Everest,Mount Snow Peak
