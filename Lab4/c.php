@@ -47,7 +47,7 @@ if(isset($_GET['submit'])){
         $option_query = "SELECT * FROM $table";
     }
     else{
-        $option_query = "SELECT * FROM $table where make = $select";
+        $option_query = "SELECT * FROM $table where make = '$select'";
     }
     $options = @mysqli_query($DBConnect, $option_query);
 

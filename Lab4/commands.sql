@@ -12,3 +12,5 @@ select * from inventory;
 UPDATE inventory SET price = 5055 WHERE item_number = 2;
 
 create table employee(last_name varchar(15) not null, first_name varchar(15) not null, adderess varchar(45) not null, city varchar(30) not null, state varchar(15) not null, zip int(8) not null);
+
+SELECT employees.first_name, employees.last_name, languages.language, experience.years, employees.city FROM employees JOIN experience ON employees.id = experience.employee_id JOIN languages ON experience.language_id = languages.language_id WHERE languages.language = 'PHP' AND experience.years = 5 AND employees.city = 'Melbourne';
