@@ -22,10 +22,8 @@ $DBConnect = @mysqli_connect($host, $user,$password, $database)
 
 // get language names from db
 
-$SQLstring = "select language from languages";
-$queryResult = @mysqli_query($DBConnect, $SQLstring)
-		Or die ("<p>Unable to query the languages table.</p>"."<p>Error code ". mysqli_errno($DBConnect). ": ".mysqli_error($DBConnect)). "</p>";
-
+$SQLstring = "select DISTINCT language from languages";
+$queryResult = query($SQLstring);
 
 echo "<form>Please select a language: <select name='language'>";
 	
@@ -36,33 +34,45 @@ while ($row) {
     $row = mysqli_fetch_row($queryResult);
 }
 
+$cityQurey = "select DISTINCT city from employees";
+$cityResult = query($cityQurey);
 
+echo "</select><br/>Please input the minimum year required: <input type='text' name='year'/>
+<br/>Please input the city required: <select name='city'>";
 
-echo "</select><br/>Please input the minimum year required: <input type='text' name='year'/><input type='submit' value='Search'/></form>";
+$city = mysqli_fetch_array($cityResult);
+
+while ($city) {
+    echo "<option value='".$city[0]."'>".$city[0]."</option>";
+    $city = mysqli_fetch_array($cityResult);
+}
+
+echo "</select><input type='submit' value='Search'/></form>";
 
 //if a language is selected, get data from table
 if(isset($_GET['language'])) {
     if (isset($_GET['year']) && $_GET['year'] > 0) {
-        $SQLstring = "select e.first_name,e.last_name,l.language,x.years FROM employees e, experience x,languages l where e.id=x.employee_id and x.language_id = l.language_id and l.language='" . $_GET['language'] . "' and x.years>=" . $_GET['year'];
+        $SQLstring = "select e.first_name,e.last_name,l.language,x.years, e.city FROM employees e, experience x,languages l where e.id=x.employee_id and x.language_id = l.language_id and l.language='" . $_GET['language'] . "' and e.city= '" . $_GET['city'] . "' and x.years>=" . $_GET['year'];
     } else {
-        $SQLstring = "select e.first_name,e.last_name,l.language,x.years FROM employees e, experience x,languages l where e.employee_id=x.employee_id and x.language_id = l.language_id and language='" . $_GET['language'] . "'";
+        $SQLstring = "select e.first_name,e.last_name,l.language,x.years, e.city FROM employees e, experience x,languages l where e.id=x.employee_id and x.language_id = l.language_id and language='" . $_GET['language'] . "' and e.city= '" . $_GET['city'] . "'";
     }
 
 // perform the query, storing the result
 $queryResult = @mysqli_query($DBConnect, $SQLstring)
 		Or die ("<p>Unable to query the employee table.</p>"."<p>Error code ". mysqli_errno($DBConnect). ": ".mysqli_error($DBConnect)). "</p>";
 
-echo "<p>List of Employees who have at least ", $_GET['year'], " years in ", $_GET['language'], ".</p>";
+echo "<p>List of Employees who have at least ", $_GET['year'], " years in ", $_GET['language'], " and from ", $_GET['city'], ".</p>";
 
 echo "<table width='100%' border='1'>";
-echo "<th>First Name</th><th>Last Name</th><th>Language</th><th>Year</th>";
+echo "<th>First Name</th><th>Last Name</th><th>Language</th><th>Year</th><th>city</th>";
 	$row = mysqli_fetch_row($queryResult);
 
 	while ($row) {
 		echo "<tr><td>{$row[0]}</td>";
 		echo "<td>{$row[1]}</td>";
 		echo "<td>{$row[2]}</td>";
-		echo "<td>{$row[3]}</td></tr>";
+		echo "<td>{$row[3]}</td>";
+		echo "<td>{$row[4]}</td></tr>";
 		$row = mysqli_fetch_row($queryResult);
 	}
 	echo "</table>";
@@ -70,6 +80,14 @@ echo "<th>First Name</th><th>Last Name</th><th>Language</th><th>Year</th>";
 
 mysqli_close($DBConnect);
 
+}
+
+function query($syntax){
+    global $DBConnect;
+    $result = @mysqli_query($DBConnect, $syntax)
+    Or die ("<p>Unable to query</p>"."<p>Error code ". mysqli_errno($DBConnect). ": ".mysqli_error($DBConnect)). "</p>";
+
+    return $result;
 }
 ?>
 

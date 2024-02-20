@@ -1,20 +1,27 @@
-This file contains my understanding and steps I took on doing lab activity 1.
+# Lab Activity 4
 
-<h1>Exercises</h1>
-a)
-<ul> 
-<li> Create a MySQL database table named ‘inventory’in MySQL Monitor, a command-line program. The structure of inventory
-table is the shown in the lecture slides for Week 4(slide #24).</li>
+This repository contains the solutions and documentation and my understanding for Lab Activity 4.
 
-Answer: database inventory created using following command.
+## Activities
+
+1. [MySQL Database Operations](#mysql-database-operations)
+2. [MySQL Database Operations via phpMyAdmin](#mysql-database-operations-via-phpmyadmin)
+3. [PHP Script to Display Inventory Data](#php-script-to-display-inventory-data)
+4. [PHP Script to Insert New Inventory Data](#php-script-to-insert-new-inventory-data)
+5. [MySQL Query to Retrieve Employee Data](#mysql-query-to-retrieve-employee-data)
+6. [Modified SearchSkill.php Script](#modified-searchskillphp-script)
+7. [Database-Powered Online Quiz](#database-powered-online-quiz)
+
+## Exercises
+
+### a. Inventory
+- Create a MySQL database table named ‘inventory’ in MySQL Monitor, a command-line program. The structure of inventory table is the shown in the lecture slides for Week 4(slide #24).  
 ```sql
 create database if not exists inventory;
 use inventory;
-CREATE TABLE inventory ( item_number int NOT NULL AUTO_INCREMENT, make char(20) NOT NULL, model varchar(30) NOT NULL, price double NOT NULL, quantity int NOT NULL, PRIMARY KEY (item_number) );
-```
-<li>Insert at least 5 records into the table.</li>
-Answer: added 5 records to database using following command.
-
+CREATE TABLE inventory ( item_number int NOT NULL AUTO_INCREMENT, make char(20) NOT NULL, model varchar(30) NOT NULL, price double NOT NULL, quantity int NOT NULL, PRIMARY KEY (item_number));
+```  
+- Insert at least 5 records into the table  
 ```sql
 INSERT INTO inventory(make, model, price, quantity) VALUES ('Yamaha', 'xcy101', 28000, 1);
 INSERT INTO inventory(make, model, price, quantity) VALUES ('Mazda', 'abc123', 5000, 13);
@@ -22,99 +29,78 @@ INSERT INTO inventory(make, model, price, quantity) VALUES ('Honda', 'ssd123', 7
 INSERT INTO inventory(make, model, price, quantity) VALUES ('Audi', 'pre115', 39000, 3);
 INSERT INTO inventory(make, model, price, quantity) VALUES ('Tesla', 'xy12ab', 37000, 18);
 ```
+![create records.png](../Lab4/Screenshots/1create%20records.png)
 
-![1create records.png](Screenshots%2F1create%20records.png)
-
-<li>Write a query that return all records of the table.</li>
-
-Answer: The records displayed using following command.
+- Write a query that return all records of the table  
 ```sql
 select * from inventory;
 ```
+![display.png](../Lab4/Screenshots/1display.png)  
 
-![1display.png](Screenshots%2F1display.png)
-
-<li>Update an existing table row using ‘update’ statement.</li>
-Answer: From the record, the price of item 2 was updated using following command.
-
+- Update an existing table row using ‘update’ statement.  
 ```sql
 UPDATE inventory SET price = 5055 WHERE item_number = 2;
-``` 
+```
+![update.png](../Lab4/Screenshots/1update.png)  
 
-![1update.png](Screenshots%2F1update.png)
-</ul>
-
-<p align="justify"> b) Create a MySQL database table named ‘Employees’ in phpMyAdmin. The structure of Employees table is the shown in the 
+## b. Employees
+- Create a MySQL database table named ‘Employees’ in phpMyAdmin. The structure of Employees table is the shown in the 
 lecture slides for Week 4 (slide #3).  Then, similar to a), use this web interface to insert some data into this table 
-and write SQL codes to query/update the table. </p>
-
-Answer: THe following commands were used for above operations.
+and write SQL codes to query/update the table.  
 ```sql
 create table employees(last_name varchar(15) not null, first_name varchar(15) not null, address varchar(45) not null, city varchar(30) not null, state varchar(15) not null, zip int(8) not null);
-
-insert into employees (last_name, first_name, address, city, state, zip) values ('Bolver', 'Maire', '02117 Barby Court', 'Sydney', 'NSW', '1130');
-insert into employees (last_name, first_name, address, city, state, zip) values ('Revening', 'Aubert', '92978 Pawling Trail', 'Albuquerque', 'NM', '87140');
-insert into employees (last_name, first_name, address, city, state, zip) values ('Lumox', 'Trevor', '111 Morrow Hill', 'Sydney', 'NSW', '1196');
-insert into employees (last_name, first_name, address, city, state, zip) values ('Gilberthorpe', 'Ulrika', '62166 Morrow Pass', 'Melbourne', 'VIC', '8045');
-insert into employees (last_name, first_name, address, city, state, zip) values ('Leither', 'Harriett', '84952 Briar Crest Street', 'Albuquerque', 'NM', '87140');
-insert into employees (last_name, first_name, address, city, state, zip) values ('Lindblad', 'Brien', '5 Upham Crossing', 'Sydney', 'NSW', '1196');
-insert into employees (last_name, first_name, address, city, state, zip) values ('Darkins', 'Ada', '090 Grayhawk Crossing', 'Adelaide Mail Centre', 'SA', '5889');
-insert into employees (last_name, first_name, address, city, state, zip) values ('Baldwin', 'Darleen', '06464 Rowland Point', 'Sydney', 'NSW', '1109');
-insert into employees (last_name, first_name, address, city, state, zip) values ('Abercromby', 'Mattias', '7402 Clemons Alley', 'Albuquerque', 'NM', '87140');
-insert into employees (last_name, first_name, address, city, state, zip) values ('Balazin', 'Jeannette', '686 Gateway Place', 'Sydney', 'NSW', '1120');
-
+insert into employees (last_name, first_name, address, city, state, zip) values ('Bolver', 'Maire', '02117 Barby Court', 'Sydney', 'NSW', '1130'),
+                                                                                ('Revening', 'Aubert', '92978 Pawling Trail', 'Albuquerque', 'NM', '87140'),
+                                                                                ('Lumox', 'Trevor', '111 Morrow Hill', 'Sydney', 'NSW', '1196'),
+                                                                                ('Gilberthorpe', 'Ulrika', '62166 Morrow Pass', 'Melbourne', 'VIC', '8045'),
+                                                                                ('Leither', 'Harriett', '84952 Briar Crest Street', 'Albuquerque', 'NM', '87140'),
+                                                                                ('Lindblad', 'Brien', '5 Upham Crossing', 'Sydney', 'NSW', '1196'),
+                                                                                ('Darkins', 'Ada', '090 Grayhawk Crossing', 'Adelaide Mail Centre', 'SA', '5889'),
+                                                                                ('Baldwin', 'Darleen', '06464 Rowland Point', 'Sydney', 'NSW', '1109'),
+                                                                                ('Abercromby', 'Mattias', '7402 Clemons Alley', 'Albuquerque', 'NM', '87140'),
+                                                                                ('Balazin', 'Jeannette', '686 Gateway Place', 'Sydney', 'NSW', '1120');
 select * from employees;
-
 update employees set city = "newcastle", zip = "123456"  WHERE last_name = "Balazin";
-
 select * from employees;
 ```
-Create and display:
-![2create&display.png](Screenshots%2F2create%26display.png)
+Create and display:  
+![create&display.png](../Lab4/Screenshots/2create&display.png)<br>  
+Update record:  
+![update.png](../Lab4/Screenshots/2update.png)
 
-Update record:
-
-![2update.png](Screenshots%2F2update.png)
-
-<p align="justify"> c) Write a PHP page to retrieve records from the ‘inventory’ table created in a), and display them neatly in an html 
+## c. Inventory UI
+- Write a PHP page to retrieve records from the ‘inventory’ table created in a), and display them neatly in an html 
 table.You need to provide an html select control on the page (see Figure 1). The content of this select control are 
 names of all makes that can be found in the inventory table.User can select to show the data of a specific make or show 
-the data of all makes(see Figure 2). </p>
+the data of all makes(see Figure 2).<br>  
+Answer: see attached file [c.php](../Lab4/c.php)<br>  
+![inventory](../Lab4/Screenshots/3ss.png)
 
-Answer: see attached file [c.php](c.php)
-![3ss.png](Screenshots%2F3ss.png)
-
-
-<p align="justify"> d) Modify the page in c) to allow user insert new data row from the web page (see Figure 3). After the user input the 
+## d. Employees UI  
+- Modify the page in c) to allow user insert new data row from the web page (see Figure 3). After the user input the 
 content of new row and press the ‘add’ button, the input data will be inserted into MySQL database. Then the page will
-display the updated content of the ‘inventory’ table (see Figure 4). </p>
+display the updated content of the ‘inventory’ table (see Figure 4).<br>  
+Answer: see attached file [employees](../Lab4/d.php)<br>  
+![employees.png](../Lab4/Screenshots/4display.png)
 
-Answer: see attached file [d.php](d.php)
-![4display.png](Screenshots%2F4display.png)
-
-<p align="justify"> e) The following three tables are created with some data in a database called person_db.
-
+## e. Working with data across multiple tables
+1. The following three tables are created with some data in a database called person_db.  
 ``` sql
 Employees(employee_id,  last_name,  first_name,  address, city, state, zip);
 Experience(employee_id, language_id, years);
 Languages(language_id, language);
 ```
-
-Answer: Rather than creating new table for employees, the existing employee table was used. ID column was added as a 
+Rather than creating new table for employees, the existing employee table was used. ID column was added as a
 primary key and set as auto increment. The following command was used.
 ```sql
 ALTER TABLE employees ADD COLUMN id INT AUTO_INCREMENT PRIMARY KEY FIRST;
 ```
-
-Then created the required two tables. 
-
+Then created the required two tables.  
 ```sql
 CREATE TABLE languages (language_id INT AUTO_INCREMENT PRIMARY KEY, language VARCHAR(30));
 CREATE TABLE experience (employee_id INT, language_id INT, years INT, FOREIGN KEY (employee_id) REFERENCES employees(id), FOREIGN KEY (language_id) REFERENCES languages(language_id));
 ```
-
-I have used https://www.mockaroo.com/ to generate random data.
-
+I have used https://www.mockaroo.com/ to generate 100 random data.
 ```sql
 insert into experience (employee_id, language_id, years) values  (7, 1, 8),(7, 4, 4),(9, 1, 10),(3, 7, 6),(4, 2, 7),
     (10, 9, 8),(6, 7, 8),(6, 9, 5),(10, 2, 5),(4, 9, 6),(8, 9, 7),(5, 6, 10),(1, 7, 6),(2, 2, 7),(8, 8, 8),(6, 1, 1),
@@ -128,24 +114,34 @@ insert into experience (employee_id, language_id, years) values  (7, 1, 8),(7, 4
     (2, 5, 2),(6, 2, 7),(4, 5, 4),(5, 5, 1),(1, 3, 7),(4, 1, 9),(8, 4, 6);
 ```
 
-Write  the  SQL  query statement to  retrieve  those  employees  (with  their  items: first_name,  last_name,  language,
-years,  city)  who  have  5  years’  experience  in “PHP” and  live in the city “Melbourne”.
+
+- Write  the  SQL  query statement to  retrieve  those  employees  (with  their  items: first_name,  last_name,  language, years,  city)  who  have  5  years’  experience  in “PHP” and  live in the city “Melbourne”.
 ```sql
-SELECT employees.first_name, employees.last_name, languages.language, experience.years, employees.city FROM employees 
-    JOIN experience ON employees.id = experience.employee_id JOIN languages ON experience.language_id = languages.language_id
-    WHERE languages.language = 'PHP' AND experience.years = 5 AND employees.city = 'Melbourne';
+SELECT e.first_name, e.last_name, l.language, x.years, e.city FROM employees e, experience x, languages l WHERE e.id=x.employee_id and x.language_id=l.language_id and l.language = 'PHP' AND x.years >= 5 AND e.city = 'Melbourne';
 ```
-![5query.png](Screenshots%2F5query.png)
+![5query.png](../Lab4/Screenshots/5query.png)
 
-</p>
+## f. SearchSkill
 
-<p align="justify"> f) Modify the code SearchSkill.php introduced in Lecture 4 (download Lec4Examples.zip from Blackboard) to get city, 
-language, and years from the interface and output the search result as below by using the similar  SQL query in e):
+- Modify the code SearchSkill.php introduced in Lecture 4 (download Lec4Examples.zip from Blackboard) to get city, language, and years from the interface and output the search result as below by using the similar  SQL query in e):<br>  
+Answer: See attached file [searchSkill.php](../Lab4/searchSkill.php)
 
-Answer: FIrst, the code had to be modified to run as is locally. see attached [searchSkill.php](searchSkill.php)
+## g. Simple Quiz
 
-<p align="justify"> g) Change the simple online quiz PHP page that you wrote for exercise (e) in Lab2 and exercise (c) in Lab3. Instead of 
-hard coding the questions on the HTML page or store them in a file, you need to store them in one or more MySQL database
-tables. You need to design the table structure to store questions and answers properly. When the page is loaded, it will
-read the questions from the database and display them on the screen. So if questions/answers are changed, thisprogram can
-be used without modifying any of PHP codes. </p>
+- Change the simple online quiz PHP page that you wrote for exercise (e) in Lab2 and exercise (c) in Lab3. Instead of hard coding the questions on the HTML page or store them in a file, you need to store them in one or more MySQL database tables. You need to design the table structure to store questions and answers properly. When the page is loaded, it will read the questions from the database and display them on the screen. So if questions/answers are changed, this program can be used without modifying any of PHP codes.
+    - Following commands were used to create table and save questions/answers.
+    ```sql
+    use inventory;
+    create table if not exists quiz( question text, options text, correct_answer char(15));
+    insert into quiz (question, options, correct_answer) values
+        ("What is the orange part of an egg called?", "Jelly, Ball, Yolk, Eggshell", "Yolk"),
+        ("What is a baby kangaroo called?", "Kongo, Joey, Boy, Club", "Joey"),
+        ("In which country can you find the Eiffel Tower?", "Paris, Italy, USA, France", "Paris"),
+        ("What's the name of the river that runs through Egypt?", "The Mile, The Nile, The Amazon, The River of Egypt", "The Nile"),
+        ("What's the highest mountain in the world?", "Burj Khalifa, Mount K2, Everest, Mount Snow Peak", "Everest");
+    ```
+  
+  - see attached file [quiz.php](../Lab4/quiz.php)
+
+You can also view my lab progress in [My personal website](https://wadd.probitytech.work). The labs will be up to date with activities I have done.
+Google chrome might flag the site as unsafe but the site uses HTTPS and runs fine using firefox.

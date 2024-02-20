@@ -17,11 +17,19 @@
 <?php
 if(isset($_GET['submit'])){
     if(isset($_GET['string']) && $_GET['string'] != null){
-        if(is_numeric($_GET['string'])){
+        $string = $_GET['string'];
+        if(is_numeric($string)){
             echo "<br>Input an string. Not a number.";
             exit;
         }
-        $string = $_GET['string'];
+        else{
+            $numbers = '/[0-9]/';
+            $special = '/^\w\s/';
+            if(preg_match($numbers, $string) || preg_match($special, $string)){
+                echo "<br>Your string contains special characters or numbers";
+                exit;
+            }
+        }
         if($string == strrev($string)){
             echo "<br>The text you entered <b>$string</b> is a perfect palindrome";
         }

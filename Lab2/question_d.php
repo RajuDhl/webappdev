@@ -7,7 +7,7 @@
     <form>
         <div>
             <p>
-                <label>Please Input a Number:<input type="text" name="number">
+                <label>Please Input a Number:<input type="number" name="number">
             </p>
             <input type="submit" name="submit" value="submit">
         </div>

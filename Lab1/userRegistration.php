@@ -29,8 +29,6 @@
   </body> 
 
 <?php
-	// get name and password passed from client
-
 if(isset($_GET['submit'])) {
     $name = $_GET['namefield'];
     $pwd = $_GET['pwdfield'];
@@ -39,16 +37,46 @@ if(isset($_GET['submit'])) {
     $email = $_GET['email'];
 
     if (isset($_GET['namefield']) && isset($_GET['pwdfield']) && isset($_GET['gender']) && isset($_GET['age-group']) && isset($_GET['email'])) {
-        echo "Name: $name";
-        echo "<br>Password: $pwd";
-        echo "<br>Gender: $gender";
-        echo "<br>Age: $age";
-        echo "<br>Email: $email";
-        echo "<br>Current Server Time: " . date('D M d h:i:s e Y');
+        if(valid($name, $age)){
+            echo "Name: $name";
+            echo "<br>Password: $pwd";
+            echo "<br>Gender: $gender";
+            echo "<br>Age: $age";
+            echo "<br>Email: $email";
+            echo "<br>Current Server Time: " . date('D M d h:i:s e Y');
+        }
+        else{
+            echo "failing";
+        }
     }
     else{
         echo"<h3><b>Please check the input values and try again</b>";
     }
+}
+
+function valid($name, $age): int
+{
+    if(is_numeric($name)){
+        echo "<br>Input an string. Not a number.";
+        return 0;
+    }
+    else{
+        $numbers = '/[0-9]/';
+        $special = '/^\w\s/';
+        if(preg_match($numbers, $name) || preg_match($special, $name)){
+            echo "<br>Your string contains special characters or numbers";
+            return 0;
+        }
+    }
+    if($age == 'select'){
+        echo "Please select an age group";
+        return 0;
+    }
+    echo "outside of loop";
+    return 1;
+}
+{
+
 }
 ?>
 

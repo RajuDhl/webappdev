@@ -7,7 +7,7 @@
 <H1>An example of using "for" and "while" in PHP</H1>
 
 <form>
-    Please input a number:	<input type="text" name="numberfield"> </label>
+    Please input a number:	<input type="number" name="numberfield"> </label>
     <br/>Select math function:
     <input type="radio" name="math" value="factorial">factorial
     <input type="radio" name="math" value="fibonacci">fibonacci
