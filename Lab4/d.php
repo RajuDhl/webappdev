@@ -39,7 +39,6 @@ if(isset($_GET['submit'])){
         $insert_query = "Insert into $table (`make`, `model`, `price`, `quantity`) values('$make', '$model', $price, $quantity)";
         $insert = @mysqli_query($DBConnect, $insert_query);
     }
-
 }
 
 
@@ -82,7 +81,7 @@ function validate($make, $model, $price, $quantity){
 {
 
 }
-
+mysqli_close($DBConnect);
 ?>
 
 </body>

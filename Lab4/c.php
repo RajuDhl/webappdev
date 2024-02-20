@@ -61,7 +61,7 @@ if(isset($_GET['submit'])){
     }
     echo "</table>";
 }
-
+mysqli_close($DBConnect);
 ?>
 
 </body>

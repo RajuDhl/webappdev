@@ -42,6 +42,7 @@
         $options = mysqli_fetch_array($result);
         ++$count;
     }
+    mysqli_close($DBConnect);
     ?>
     <input type="submit" value="SUBMIT" name="submit">
 </form>
