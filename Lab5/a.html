@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Non-Factors</title>
+</head>
+<body>
+<label>Input a number <input type="number" id="number" placeholder="Enter a number"></label>
+<button onclick="printNonFactors(parseInt(document.getElementById('number').value))">Submit</button>
+<p id="result"></p>
+<script>
+    function printNonFactors(number) {
+        let nonFactors = [];
+        if(number<1 || typeof(number) != "number"){
+            document.getElementById("result").textContent ="invalid input. Please input int value greater than 1";
+            return
+        }
+        else{
+            nonFactors.push(number);
+            for (let i = number; i > 1; i--) {
+                if (number % i !== 0) {
+                    nonFactors.push(i);
+                }
+            }
+            nonFactors.push(1);
+        }
+        document.getElementById("result").textContent = "Non-factors of " + number + " are: " + nonFactors.join(", ");
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN�" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <title>Address Book</title>
+    <style type="text/css">
+        .ab {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            font-size: small;
+            color: #993300;
+            background-color: #CCFFCC;
+            padding: 5px;
+            height: 100px;
+            width: 350px;
+            border: thin dotted #993300;
+        }
+        .new-row {
+            color: green;
+        }
+        .bold-text {
+            font-weight: bolder;
+            font-size: 25px;
+            background-color: darkgreen;
+            color: white;
+        }
+    </style>
+
+    <script type="text/javascript">
+        function addressBookItem (fname, lname, email) {
+            this.fname= fname;
+            this.lname = lname;
+            this.email = email;
+        }
+
+        addressBookItem.prototype.write = function() {
+            var adrbook = "<p class='ab'>First Name: " + this.fname + "<br />";
+            adrbook += "Last Name: " + this.lname + "<br />";
+            adrbook += "Email Address: " + this.email + "</p>";
+
+            document.write(adrbook);
+        }
+
+    </script>
+</head>
+<body>
+<h2>Address Book</h2>
+<table id="table" width='100%' border='1'>
+    <thead>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email Address</th>
+    </tr>
+    </thead>
+</table><br/>
+<button type="button" id="addButton" style="display:block" onclick="showForm()">Append New Row</button>
+<form id="insertForm" style="display:none;">
+    <h3> Please Insert values for new row</h3>
+    <label>First Name: <input type="text" id="fname" name="fname"></label><br/><br/>
+    <label>Last Name: <input type="text" id="lname" name="lname"></label><br/><br/>
+    <label>Email: <input name="email" id="email" type="email"></label><br/><br/>
+    <button type="button" onclick="appendRow()">Submit</button>
+</form>
+
+
+<script type="text/javascript">
+    let form = document.getElementById("insertForm");
+    function showForm() {
+        form.style.display = "block";
+    }
+
+    function appendRow() {
+        let fName=form.fname.value;
+        let lName=form.lname.value;
+        let email=form.email.value;
+
+        if (fName === '' || lName === '' || email === '') {
+            document.getElementById('errorMessage').textContent = 'Please fill in all fields.';
+            return;
+        }
+
+        let stringRegex = /^[A-Za-z]+$/;
+        let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        let errorText = document.getElementById("errorMessage");
+        if (!stringRegex.test(fName) || !stringRegex.test(lName)) {
+            errorText.textContent = "First name and last name should only contain alphabetical characters.";
+            return;
+        }
+        if(!emailRegex.test(email)){
+            errorText.textContent = "Email format is invalid";
+        }
+        else{
+            let newRow = new addressBookItem(fName, lName, email);
+            addToTable(newRow, "new-row");
+
+            form.reset();
+            form.style.display = "none";
+            errorText.textContent = "";
+        }
+
+    }
+    function addToTable(item, attr){
+        let table = document.getElementById('table');
+        let row = table.insertRow();
+        row.classList.add(attr);
+        let firstName = row.insertCell(0);
+        let lastName = row.insertCell(1);
+        let emailAddress = row.insertCell(2);
+        firstName.innerHTML = item.fname;
+        lastName.innerHTML = item.lname;
+        emailAddress.innerHTML = item.email;
+
+        row.querySelectorAll("td").forEach(function(cell) {
+            cell.addEventListener("mouseover", function () {
+                cell.classList.add("bold-text");
+            });
+            cell.addEventListener("mouseout", function () {
+                cell.classList.remove("bold-text");
+            });
+        });
+    }
+
+    let aB1 = new addressBookItem('Roger', 'Williams', 'rwilliams@gmail.com');
+    let aB2 = new addressBookItem ('Rose', 'Schultz', 'rose_s@earthlink.net');
+
+    addToTable(aB1);
+    addToTable(aB2);
+
+
+</script>
+<span id="errorMessage" class="error-message" style="color: red"></span><br>
+</body>
+</html>
