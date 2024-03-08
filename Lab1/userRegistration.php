@@ -45,9 +45,6 @@ if(isset($_GET['submit'])) {
             echo "<br>Email: $email";
             echo "<br>Current Server Time: " . date('D M d h:i:s e Y');
         }
-        else{
-            echo "failing";
-        }
     }
     else{
         echo"<h3><b>Please check the input values and try again</b>";
