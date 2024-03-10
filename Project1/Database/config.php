@@ -1,9 +1,20 @@
+<!--
+Student Name: Raju Dahal
+Student ID: 104055570
+
+This file is used to make a connection to the database
+-->
+
+
 <?php
-const DB_SERVER = 'localhost';
-const DB_USER = 'root';
-const DB_PASS = 'Kathmandu@1';
-const DB_NAME = 'cabsOnline';
-$con = mysqli_connect(DB_SERVER,DB_USER,DB_PASS,DB_NAME);
+
+// Change these values to your database settings
+$server = 'localhost';
+$user = 'root';
+$password = 'Kathmandu@1';
+$database = 'cabsOnline';
+
+$con = mysqli_connect($server,$user,$password,$database);
 
 if (mysqli_connect_errno())
 {
