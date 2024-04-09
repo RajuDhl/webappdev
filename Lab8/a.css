@@ -1,0 +1,32 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    padding: 20px;
+}
+
+h1 {
+    color: blue;
+}
+
+.title {
+    font-weight: bold;
+    color: blue;
+}
+
+.author {
+    font-style: italic;
+    color: red;
+}
+
+.price {
+    color: black;
+}
+
+.total-cost {
+    font-family: 'Raleway', sans-serif;
+    font-size: 50px;
+}
+
+.book{
+    margin: 30px;
+}
